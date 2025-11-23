@@ -10,10 +10,9 @@ const options = {
       description: 'API documentation for ChoreChamp project',
     },
     servers: [
-      {
-        url: 'http://localhost:3000',
-      },
-    ],
+  { url: "http://localhost:3000" },
+  { url: "https://chorechamp-fo7h.onrender.com" }
+],
   },
   apis: ['./routes/*.js'],
 };
