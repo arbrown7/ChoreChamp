@@ -1,0 +1,262 @@
+//***************************************
+// Local REST Test Routes
+//***************************************
+//**********Users**********
+###
+GET http://localhost:3000/users
+###
+GET http://localhost:3000/users/1
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "JD@email.com",
+  "houseHold": "Doe Family",
+  "role": "Parent",
+  "avatar": "/images/john_portrait.png",
+  "points": "72",
+  "preferredTasks": "Garbages, Dishes"
+}
+###
+PUT http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "JD@email.com",
+  "houseHold": "Doe Family",
+  "role": "Parent",
+  "avatar": "/images/john_portrait.png",
+  "points": "72",
+  "preferredTasks": "Garbages, Dishes"
+}
+###
+DELETE http://localhost:3000/users/1
+###
+//**********Tasks**********
+###
+GET http://localhost:3000/tasks
+###
+GET http://localhost:3000/tasks/1
+###
+POST http://localhost:3000/tasks
+Content-Type: application/json
+
+{
+  "taskTitle": "Take out the trash",
+  "taskDesc": "Collect all garbage from the house and take it outside to put it in the trash bin.",
+  "assignedTo": "1",
+  "dueDate": "2024-07-01",
+  "status": true,
+  "recurrence": "Weekly",
+  "points": 10
+}
+###
+PUT http://localhost:3000/tasks/1
+Content-Type: application/json
+
+{
+  "taskTitle": "Take out the trash",
+  "taskDesc": "Collect all garbage from the house and take it outside to put it in the trash bin.",
+  "assignedTo": "1",
+  "dueDate": "2024-07-01",
+  "status": false,
+  "recurrence": "Weekly",
+  "points": 10
+}
+###
+DELETE http://localhost:3000/tasks/1
+###
+//**********Households**********
+###
+GET http://localhost:3000/households
+###
+GET http://localhost:3000/households/1
+###
+POST http://localhost:3000/households
+Content-Type: application/json
+
+{
+  "householdName": "Doe Family",
+  "address": "123 Main St, Anytown, USA",
+  "members": ["Jill Doe", "John Doe", "Jane Doe", "Jack Doe"],
+  "joinCode": "XYZ123",
+  "createdBy": "John Doe"
+}
+###
+PUT http://localhost:3000/households/1
+Content-Type: application/json
+
+{
+  "householdName": "Doe Family Updated",
+  "address": "123 Main St, Anytown, USA",
+  "members": ["Jill Doe", "John Doe", "Jane Doe", "Jack Doe"],
+  "joinCode": "XYZ123",
+  "createdBy": "John Doe"
+}
+###
+DELETE http://localhost:3000/households/1
+###
+//**********Task Logs**********
+###
+GET http://localhost:3000/tasklogs
+###
+GET http://localhost:3000/tasklogs/1
+###
+POST http://localhost:3000/tasklogs
+Content-Type: application/json
+
+{
+  "taskId": "2",
+  "completedBy": "Jack Doe",
+  "completionDate": "2024-06-15",
+  "notes": "Completed ahead of schedule",
+  "verified": true
+}
+###
+PUT http://localhost:3000/tasklogs/1
+Content-Type: application/json
+
+{
+  "taskId": "2",
+  "completedBy": "Jack Doe",
+  "completionDate": "2024-06-15",
+  "notes": "Completed behind schedule",
+  "verified": false
+}
+###
+DELETE http://localhost:3000/tasklogs/1
+###
+//***************************************
+// Production REST Test Routes
+//***************************************
+//**********Users**********
+###
+GET https://chorechamp-fo7h.onrender.com/users
+###
+GET https://chorechamp-fo7h.onrender.com/users/1
+###
+POST https://chorechamp-fo7h.onrender.com/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "JD@email.com",
+  "houseHold": "Doe Family",
+  "role": "Parent",
+  "avatar": "/images/john_portrait.png",
+  "points": "72",
+  "preferredTasks": "Garbages, Dishes"
+}
+###
+PUT https://chorechamp-fo7h.onrender.com/users/1
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "JD@email.com",
+  "houseHold": "Doe Family",
+  "role": "Parent",
+  "avatar": "/images/john_portrait.png",
+  "points": "72",
+  "preferredTasks": "Garbages, Dishes"
+}
+###
+DELETE https://chorechamp-fo7h.onrender.com/users/1
+###
+//**********Tasks**********
+###
+GET https://chorechamp-fo7h.onrender.com/tasks
+###
+GET https://chorechamp-fo7h.onrender.com/tasks/1
+###
+POST https://chorechamp-fo7h.onrender.com/tasks
+Content-Type: application/json
+
+{
+  "taskTitle": "Take out the trash",
+  "taskDesc": "Collect all garbage from the house and take it outside to put it in the trash bin.",
+  "assignedTo": "1",
+  "dueDate": "2024-07-01",
+  "status": true,
+  "recurrence": "Weekly",
+  "points": 10
+}
+###
+PUT https://chorechamp-fo7h.onrender.com/tasks/1
+Content-Type: application/json
+
+{
+  "taskTitle": "Take out the trash",
+  "taskDesc": "Collect all garbage from the house and take it outside to put it in the trash bin.",
+  "assignedTo": "1",
+  "dueDate": "2024-07-01",
+  "status": false,
+  "recurrence": "Weekly",
+  "points": 10
+}
+###
+DELETE https://chorechamp-fo7h.onrender.com/tasks/1
+###
+//**********Households**********
+###
+GET https://chorechamp-fo7h.onrender.com/households
+###
+GET https://chorechamp-fo7h.onrender.com/households/1
+###
+POST https://chorechamp-fo7h.onrender.com/households
+Content-Type: application/json
+
+{
+  "householdName": "Doe Family",
+  "address": "123 Main St, Anytown, USA",
+  "members": ["Jill Doe", "John Doe", "Jane Doe", "Jack Doe"],
+  "joinCode": "XYZ123",
+  "createdBy": "John Doe"
+}
+###
+PUT https://chorechamp-fo7h.onrender.com/households/1
+Content-Type: application/json
+
+{
+  "householdName": "Doe Family Updated",
+  "address": "123 Main St, Anytown, USA",
+  "members": ["Jill Doe", "John Doe", "Jane Doe", "Jack Doe"],
+  "joinCode": "XYZ123",
+  "createdBy": "John Doe"
+}
+###
+DELETE https://chorechamp-fo7h.onrender.com/households/1
+###
+//**********Task Logs**********
+###
+GET https://chorechamp-fo7h.onrender.com/tasklogs
+###
+GET https://chorechamp-fo7h.onrender.com/tasklogs/1
+###
+POST https://chorechamp-fo7h.onrender.com/tasklogs
+Content-Type: application/json
+
+{
+  "taskId": "2",
+  "completedBy": "Jack Doe",
+  "completionDate": "2024-06-15",
+  "notes": "Completed ahead of schedule",
+  "verified": true
+}
+###
+PUT https://chorechamp-fo7h.onrender.com/tasklogs/1
+Content-Type: application/json
+
+{
+  "taskId": "2",
+  "completedBy": "Jack Doe",
+  "completionDate": "2024-06-15",
+  "notes": "Completed behind schedule",
+  "verified": false
+}
+###
+DELETE https://chorechamp-fo7h.onrender.com/tasklogs/1
+###
