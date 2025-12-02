@@ -29,7 +29,7 @@ const householdSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  adress: {
+  address: {
     type: String
   },
   members: {
