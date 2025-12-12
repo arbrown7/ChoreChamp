@@ -1,25 +1,27 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const Auth0Strategy = require('passport-auth0');
 
 passport.use(
-  new GoogleStrategy(
+  new Auth0Strategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL,
+      domain: process.env.AUTH0_DOMAIN,
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.AUTH0_SECRET,
+      callbackURL: process.env.AUTH0_CALLBACK_URL,
+      state: false // optional — depends on your setup
     },
-    (accessToken, refreshToken, profile, done) => {
-      // You could save the user info to MongoDB here
-      console.log('Google profile:', profile);
+    (accessToken, refreshToken, extraParams, profile, done) => {
       return done(null, profile);
     }
   )
 );
 
+// save the whole user object in the session
 passport.serializeUser((user, done) => {
   done(null, user);
 });
 
+// restore it from the session
 passport.deserializeUser((user, done) => {
   done(null, user);
 });

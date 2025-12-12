@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const usersController = require('../controllers/households');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -108,10 +109,10 @@ const usersController = require('../controllers/households');
  */
 
 
-router.get('/', usersController.getAllHouseholds);
-router.post('/', usersController.createHousehold);
-router.get('/:id', usersController.getHouseholdById);
-router.put('/:id', usersController.updateHouseholdById);
-router.delete('/:id', usersController.deleteHouseholdById);
+router.get('/', ensureAuthenticated, usersController.getAllHouseholds);
+router.post('/', ensureAuthenticated, usersController.createHousehold);
+router.get('/:id', ensureAuthenticated, usersController.getHouseholdById);
+router.put('/:id', ensureAuthenticated, usersController.updateHouseholdById);
+router.delete('/:id', ensureAuthenticated, usersController.deleteHouseholdById);
 
 module.exports = router;

@@ -4,14 +4,49 @@ const PORT = process.env.PORT || 3000;
 const mongodb = require('./database/db'); 
 const bodyParser = require('body-parser');
 const setupSwagger = require('./swagger');
+const passport = require('./config/passport');
+const session = require('express-session');
 
-app
-  .use(bodyParser.json())
-  .use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'supersecret',
+    resave: false,
+    saveUninitialized: true
   })
-  .use('/', require('./routes'));
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+app.get('/login', passport.authenticate('auth0'));
+
+app.get(
+  '/callback',
+  passport.authenticate('auth0', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
+
+app.get('/logout', (req, res, next) => {
+  req.logout(err => {
+    if (err) return next(err);
+
+    // Confirm logout locally
+    res.send('You have logged out.');
+  });
+});
+
+
+app.use('/', require('./routes'));
 
 setupSwagger(app);
 

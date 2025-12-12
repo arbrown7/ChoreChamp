@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const taskLogsController = require('../controllers/taskLogs');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -106,9 +107,9 @@ const taskLogsController = require('../controllers/taskLogs');
  */
 
 router.get('/', taskLogsController.getAllTaskLogs);
-router.post('/', taskLogsController.createTaskLog);
+router.post('/', ensureAuthenticated, taskLogsController.createTaskLog);
 router.get('/:id', taskLogsController.getTaskLogById);
-router.put('/:id', taskLogsController.updateTaskLogById);
-router.delete('/:id', taskLogsController.deleteTaskLogById);
+router.put('/:id', ensureAuthenticated, taskLogsController.updateTaskLogById);
+router.delete('/:id', ensureAuthenticated, taskLogsController.deleteTaskLogById);
 
 module.exports = router;

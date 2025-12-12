@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const usersController = require('../controllers/tasks');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -115,9 +116,9 @@ const usersController = require('../controllers/tasks');
 
 
 router.get('/', usersController.getAllTasks);
-router.post('/', usersController.createTask);
+router.post('/', ensureAuthenticated, usersController.createTask);
 router.get('/:id', usersController.getTaskById);
-router.put('/:id', usersController.updateTaskById);
-router.delete('/:id', usersController.deleteTaskById);
+router.put('/:id', ensureAuthenticated, usersController.updateTaskById);
+router.delete('/:id', ensureAuthenticated, usersController.deleteTaskById);
 
 module.exports = router;
