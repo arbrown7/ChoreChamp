@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const usersController = require('../controllers/users');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -111,10 +112,10 @@ const usersController = require('../controllers/users');
  *         description: Task log deleted
  */
 
-router.get('/', usersController.getAllUsers);
-router.post('/', usersController.createUser);
-router.get('/:id', usersController.getUserById);
-router.put('/:id', usersController.updateUserById);
-router.delete('/:id', usersController.deleteUserById);
+router.get('/', ensureAuthenticated, usersController.getAllUsers);
+router.post('/', ensureAuthenticated, usersController.createUser);
+router.get('/:id', ensureAuthenticated, usersController.getUserById);
+router.put('/:id', ensureAuthenticated, usersController.updateUserById);
+router.delete('/:id', ensureAuthenticated, usersController.deleteUserById);
 
 module.exports = router;
