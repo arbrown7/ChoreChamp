@@ -19,10 +19,11 @@ const getTaskById = async (req, res) => {
 
   try {
     const taskId = new ObjectId(req.params.id);
-    const result = await db.getDb().db('ChoreChamp').collection('Tasks').find({ _id: taskId });
-    const lists = await result.toArray();
-    if (!lists[0]) return res.status(404).json({ error: 'Task not found' });
-    res.status(200).json(lists[0]);
+    const result = await db.getDb().db('ChoreChamp').collection('Tasks').findOne({ _id: taskId });
+
+    if (!result) return res.status(404).json({ error: 'Task not found' });
+
+    res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch the task' });
   }
@@ -40,7 +41,7 @@ const createTask = async (req, res) => {
         dueDate: req.body.dueDate,
         status: req.body.status,
         recurrence: req.body.recurrence,
-        points: req.body.points,
+        points: req.body.points
       };
 
       const result = await db.getDb().db('ChoreChamp').collection('Tasks').insertOne(task);
@@ -69,7 +70,7 @@ const updateTaskById = async (req, res) => {
         dueDate: req.body.dueDate,
         status: req.body.status,
         recurrence: req.body.recurrence,
-        points: req.body.points,
+        points: req.body.points
       };
 
       const result = await db.getDb().db('ChoreChamp').collection('Tasks').updateOne(
@@ -77,8 +78,10 @@ const updateTaskById = async (req, res) => {
         { $set: task }
       );
 
-      if (result.modifiedCount > 0) res.status(200).json(result);
-      else res.status(404).json({ error: 'Task not found or no changes' });
+      if (result.matchedCount === 0) return res.status(404).json({ error: 'Task not found' });
+      if (result.modifiedCount === 0) return res.status(400).json({ error: 'No changes made' });
+
+      res.status(200).json(result);
     } catch (err) {
       res.status(500).json({ error: 'Failed to update the task' });
     }
@@ -93,10 +96,32 @@ const deleteTaskById = async (req, res) => {
   try {
     const taskId = new ObjectId(req.params.id);
     const result = await db.getDb().db('ChoreChamp').collection('Tasks').deleteOne({ _id: taskId });
-    if (result.deletedCount > 0) res.status(200).json(result);
-    else res.status(404).json({ error: 'Task not found' });
+
+    if (result.deletedCount === 0) return res.status(404).json({ error: 'Task not found' });
+
+    res.status(200).json({ message: 'Task deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete the task' });
+  }
+};
+
+const getTaskLogsForTask = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: 'Invalid Task ID' });
+  }
+
+  try {
+    const taskId = req.params.id;
+    const logs = await db
+      .getDb()
+      .db('ChoreChamp')
+      .collection('TaskLogs')
+      .find({ taskId })
+      .toArray();
+
+    res.status(200).json(logs);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch task logs for task' });
   }
 };
 
@@ -105,5 +130,6 @@ module.exports = {
   getTaskById,
   createTask,
   updateTaskById,
-  deleteTaskById
+  deleteTaskById,
+  getTaskLogsForTask
 };

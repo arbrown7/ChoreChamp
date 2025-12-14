@@ -1,5 +1,6 @@
-const router = require('express').Router();
-const usersController = require('../controllers/tasks');
+const express = require('express');
+const router = express.Router();
+const tasksController = require('../controllers/tasks');
 const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
@@ -115,10 +116,11 @@ const { ensureAuthenticated } = require('../middleware/auth');
  */
 
 
-router.get('/', usersController.getAllTasks);
-router.post('/', ensureAuthenticated, usersController.createTask);
-router.get('/:id', usersController.getTaskById);
-router.put('/:id', ensureAuthenticated, usersController.updateTaskById);
-router.delete('/:id', ensureAuthenticated, usersController.deleteTaskById);
+router.get('/', ensureAuthenticated, tasksController.getAllTasks);
+router.get('/:id', ensureAuthenticated, tasksController.getTaskById);
+router.post('/', ensureAuthenticated, tasksController.createTask);
+router.put('/:id', ensureAuthenticated, tasksController.updateTaskById);
+router.delete('/:id', ensureAuthenticated, tasksController.deleteTaskById);
+router.get('/:id/tasklogs', ensureAuthenticated, tasksController.getTaskLogsForTask);
 
 module.exports = router;
