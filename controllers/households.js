@@ -28,6 +28,26 @@ const getHouseholdById = async (req, res) => {
   }
 };
 
+const getUsersForHousehold = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: 'Invalid Household ID' });
+  }
+
+  try {
+    const householdId = req.params.id;
+    const users = await db
+      .getDb()
+      .db('ChoreChamp')
+      .collection('Users')
+      .find({ houseHold: householdId })
+      .toArray();
+
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch users for household' });
+  }
+};
+
 const createHousehold = async (req, res) => {
   validateHousehold(req.body, async (err, success) => {
     if (!success) return res.status(422).json({ success: false, errors: err });
@@ -99,6 +119,7 @@ const deleteHouseholdById = async (req, res) => {
 module.exports = {
   getAllHouseholds,
   getHouseholdById,
+  getUsersForHousehold,
   createHousehold,
   updateHouseholdById,
   deleteHouseholdById

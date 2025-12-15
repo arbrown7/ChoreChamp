@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const usersController = require('../controllers/households');
+const householdsController = require('../controllers/households');
 const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
@@ -109,10 +109,11 @@ const { ensureAuthenticated } = require('../middleware/auth');
  */
 
 
-router.get('/', ensureAuthenticated, usersController.getAllHouseholds);
-router.post('/', ensureAuthenticated, usersController.createHousehold);
-router.get('/:id', ensureAuthenticated, usersController.getHouseholdById);
-router.put('/:id', ensureAuthenticated, usersController.updateHouseholdById);
-router.delete('/:id', ensureAuthenticated, usersController.deleteHouseholdById);
+router.get('/', ensureAuthenticated, householdsController.getAllHouseholds);
+router.post('/', ensureAuthenticated, householdsController.createHousehold);
+router.get('/:id', ensureAuthenticated, householdsController.getHouseholdById);
+router.put('/:id', ensureAuthenticated, householdsController.updateHouseholdById);
+router.delete('/:id', ensureAuthenticated, householdsController.deleteHouseholdById);
+router.get('/:id/users', ensureAuthenticated, householdsController.getUsersForHousehold);
 
 module.exports = router;
