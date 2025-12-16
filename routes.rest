@@ -69,6 +69,8 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/tasks/1
 ###
+GET http://localhost:3000/tasks/1/tasklogs
+###
 //**********Households**********
 ###
 GET http://localhost:3000/households
@@ -98,6 +100,8 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:3000/households/1
+###
+GET http://localhost:3000/households/1/users
 ###
 //**********Task Logs**********
 ###
@@ -200,6 +204,8 @@ Content-Type: application/json
 ###
 DELETE https://chorechamp-fo7h.onrender.com/tasks/1
 ###
+GET https://chorechamp-fo7h.onrender.com/tasks/1/tasklogs
+###
 //**********Households**********
 ###
 GET https://chorechamp-fo7h.onrender.com/households
@@ -229,6 +235,8 @@ Content-Type: application/json
 }
 ###
 DELETE https://chorechamp-fo7h.onrender.com/households/1
+###
+GET https://chorechamp-fo7h.onrender.com/households/1/users
 ###
 //**********Task Logs**********
 ###
