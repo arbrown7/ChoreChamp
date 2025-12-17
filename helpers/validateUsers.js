@@ -8,7 +8,7 @@ const validateUser = (body, callback) => {
     role: 'required|string',
     avatar: 'string',
     points: 'integer',
-    preferredTasks: 'array'
+    preferredTasks: 'string'
   };
 
   const customMessages = {
